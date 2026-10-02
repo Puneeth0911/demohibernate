@@ -1,0 +1,23 @@
+package com.alpha.demo;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+public class Update_Student_AgeMarks {
+	public static void main(String[] args) {
+		EntityManagerFactory emf=Persistence.createEntityManagerFactory("app");
+		EntityManager em=emf.createEntityManager();
+		EntityTransaction et=em.getTransaction();
+		
+		et.begin();
+		Student s=em.find(Student.class, 101);
+		if(s!=null) {
+			s.setAge(24);
+			s.setMarks(70.5);
+			em.merge(s);
+		}
+		et.commit();
+	}
+}
